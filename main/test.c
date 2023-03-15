@@ -12,14 +12,10 @@ int main(void){
     int** stackArr = (int**)malloc(sizeof(int*)*(textM+1));                         //배열을 (m개)선언해 각 배열을 스택으로 관리한다.
     int* top = (int*)malloc(sizeof(int)*(textM+1));                                 //각 스택의 탑을 기억한다.
 
-    // for(int i=0;i<textM+1;i++){
-    //     stackArr[i] = (int*)malloc(sizeof(int)*(textN+1));
-    // }
-
     for(int i=0 ; i<textM ; i++){
         int eachNum;
         scanf("%d",&eachNum);
-        stackArr[i] = (int*)malloc(sizeof(int)*(eachNum+1));
+        stackArr[i] = (int*)malloc(sizeof(int)*(eachNum+1));                        //stack에 해당하는 배열을 초기화한다
         for(int j=0; j<eachNum; j++){
             int in;
             scanf("%d",&in);
@@ -29,7 +25,7 @@ int main(void){
     }
 
     for(int i=1;i<textN+1;i++){
-        int val = checkTop(stackArr,top,i,textM);
+        int val = checkTop(stackArr,top,i,textM);                                   //목표값이 스택의 top에 있는지 확인.
         if(val == 0){
             printf("No");
             free(stackArr);
@@ -44,7 +40,7 @@ int main(void){
 
 int checkTop(int** stack, int* top, int val, int m){
     for(int i=0; i<m; i++){
-        if(top[i]-1>=0){
+        if(top[i]-1>=0){                            //top의 위치가 0(데이터가 다 빠졌을 때)일때를 거르기 위한 조건
             if(stack[i][top[i]-1]==val){
                 stack[i][top[i]-1]=0;               //목표하는 값이 탑에 있다면 해당 값을 빼고
                 top[i]--;                           //탑의 위치를 조정
@@ -54,3 +50,8 @@ int checkTop(int** stack, int* top, int val, int m){
     }
     return 0;
 }
+
+
+
+// 단순하게 stack 활용만으로는 문제가 풀리지 않는다.
+// 1. 한 더미의 값을 평균내서 그 값이 작은걸 위로 올리면 되지 않을까? - 정렬하는데 시간이 오래 걸릴수도 있음을 확인해야 한다.
