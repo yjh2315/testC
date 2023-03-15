@@ -12,13 +12,14 @@ int main(void){
     int** stackArr = (int**)malloc(sizeof(int*)*(textM+1));                         //배열을 (m개)선언해 각 배열을 스택으로 관리한다.
     int* top = (int*)malloc(sizeof(int)*(textM+1));                                 //각 스택의 탑을 기억한다.
 
-    for(int i=0;i<textM+1;i++){
-        stackArr[i] = (int*)malloc(sizeof(int)*(textN+1));
-    }
+    // for(int i=0;i<textM+1;i++){
+    //     stackArr[i] = (int*)malloc(sizeof(int)*(textN+1));
+    // }
 
     for(int i=0 ; i<textM ; i++){
         int eachNum;
         scanf("%d",&eachNum);
+        stackArr[i] = (int*)malloc(sizeof(int)*(eachNum+1));
         for(int j=0; j<eachNum; j++){
             int in;
             scanf("%d",&in);
@@ -29,7 +30,7 @@ int main(void){
 
     for(int i=1;i<textN+1;i++){
         int val = checkTop(stackArr,top,i,textM);
-        if(val = 0){
+        if(val == 0){
             printf("No");
             free(stackArr);
             free(top);
