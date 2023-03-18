@@ -9,24 +9,31 @@ int main(void){
     gets(input);
     
     char* restTemp;
-    char *temp = strtok_r(input,"<",&restTemp);
+    char* temp;
 
-    if(strcmp(temp,restTemp)==0){                   //<이 없을때(공백만 처리)
+    if(strcmp(input[0],"<")==0){
         temp = strtok_r(input," ",&restTemp);
-        while(temp!= NULL){
-        reverseWord(temp);
-        printf("%s ",temp);
-        temp = strtok_r(NULL, " ",&restTemp);
-    }
+        &restTemp = &temp;
+        temp = "";
     }else{
-        reverseWord(temp);
-        printf("%s ",temp);
-
+        temp = strtok_r(input,"<",&restTemp);
     }
     while(temp!= NULL){
-        reverseWord(temp);
-        printf("%s ",temp);
-        temp = strtok_r(NULL, " <>",&restTemp);
+
+        if(strcmp(temp,restTemp)==0){                   //<이 없을때(공백만 처리)
+            temp = strtok_r(input," ",&restTemp);
+            while(temp!= NULL){
+                reverseWord(temp);
+                printf("%s ",temp);
+                temp = strtok_r(NULL, " ",&restTemp);
+            }
+            break;
+        }else{
+            reverseWord(temp);
+            printf("%s<",temp);
+            temp = strtok_r(NULL, ">",&restTemp);
+            printf("%s>",temp);                         //<>처리
+        }
     }
 
     // char* restTemp;
