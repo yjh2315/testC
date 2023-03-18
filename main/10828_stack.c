@@ -35,6 +35,8 @@ int main(void){
             top(&stack);
         }
     }
+
+    free(stack.array);
 }
 
 void push(struct STACK *stack, int val){
