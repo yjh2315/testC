@@ -9,8 +9,8 @@ int main(){
     int top=0;
 
     char in;
+    in = getchar();
     while(in!='\n'){
-        in = getchar();
         switch(check(in)){
             case 1:
                 while(check(in)!=2){
@@ -18,26 +18,33 @@ int main(){
                     printf("%c",in);
                     in = getchar();
                 }
+                printf("%c",in);
+                in = getchar();
                 break;
             case 0:
-                while(check(in)!=3){
+                while(check(in)==0){
                     if(in=='\n') break;
                     stackIn(arr,&top,in);
                     in = getchar();
                 }
                 stackOut(arr,&top);
+                if(check(in)==4||check(in)==1) break;
+                printf("%c",in);
+                in = getchar();
                 break;
         }
     }
 }
 
 int check(char in){
-    if(in=="<"){
+    if(in=='<'){
         return 1;
-    }else if(in==">"){
+    }else if(in=='>'){
         return 2;
-    }else if(in==" "||in=='\n'){
+    }else if(in==' '){
         return 3;
+    }else if(in=='\n'){
+        return 4;
     }else{
         return 0;
     }
