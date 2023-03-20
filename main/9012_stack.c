@@ -20,11 +20,11 @@ int main(){
                     top--;
                     arr[top] = 0;           //이전 입력값이 (이고 현 입력값이 )일때 둘 다 지운다.
                 }else{
-                    arr[top] = in;
-                    top++;
+                    arr[top] = in;          // ()이 조합되지 않았다면 현재 입력값을 스택에 저장한다.
+                    top++;                  
                 }
             }else{
-                arr[0] = in;
+                arr[0] = in;                //top == 0 일때는 무조건 값을 스택에 넣는다.
                 top++;
             }
             in = getchar();
@@ -32,10 +32,10 @@ int main(){
         if(top == 0){
             printf("YES\n");
             while(in == '\n'){
-                if(i == repeat-1){
+                if(i == repeat-1){          //마지막 반복의 경우 더이상의 입력 받을 필요 X
                     return 0;
                 }
-                in = getchar();
+                in = getchar();             //마지막이 아닐 경우 다음 (들을 입력받아야함
             }
         }else{
             printf("NO\n");
