@@ -5,7 +5,7 @@ int main(){
     scanf("%d",&in);
     
     int d1 = in;
-    int d2 = 1;
+    int d2 = in/2;
     int d3 = 0;
 
     int added = 0;
@@ -19,6 +19,8 @@ int main(){
         tmp[1] = d2;
         int i = 2;
         
+
+        //단순하게 임시배열에 해당 과정 전체 저장후 CNT가 클때만 결과배열에 삽입.
         
         while(1){
             d3 = d1-d2;
@@ -39,7 +41,7 @@ int main(){
 
         added++;
         d1 = in;
-        d2 = 0 + added;
+        d2 = in/2 + added;
         tCnt = 2;
     }
 
