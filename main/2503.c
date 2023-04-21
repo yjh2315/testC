@@ -16,11 +16,13 @@ int main(){
     int check = 0;
     int cnt = 0;
 
+    //숫자를 123~987까지 다 비교. 주어진 스트라이크, 볼에 위배되지 않는 수만 카운트
+
     for(int i=1; i<10; i++){
         for(int j=1; j<10; j++){
-            if(j==i) continue;
+            if(j==i) continue;              //자리수 숫자가 다르므로 이 경우는 스킵
             for(int k=1; k<10; k++){
-                if(k==j||k==i) continue;
+                if(k==j||k==i) continue;    //자리수 숫자가 다르므로 이 경우는 스킵
                 for(int l=0; l<in; l++){
                     int temp = i*100+j*10+k;
                     if(checker(temp,arr[l],strike[l],ball[l])!=1){
@@ -38,6 +40,11 @@ int main(){
 
     printf("%d\n",cnt);
 }
+
+//비교할 숫자, 입력된 숫자, 스트라이크, 볼을 입력받음
+//만약 in과 입력된 숫자 스트라이크 볼 재판별후 이와 strike, ball값이 같으면 ok. - 1을 리턴함
+
+//아닐경우 메인문에서 check변수값을 변화. check ==0이면 모든 조건을 만족하기에 카운트
 
 int checker(int in, int number, int strike, int ball){
     int cStrike = 0;
