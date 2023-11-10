@@ -1,44 +1,74 @@
-#include<stdio.h>
-#include<stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
 
+void scroll(char* str1, int n) {
+	char str[100] = {0,};
+	strncpy(str, str1, strlen(str1));
+	char temp = 0;
+	int strlen1 = strlen(str1);
+	printf("%s\n", str1);
+	for (int i = 0; i < strlen1 * n; i++) {
+		temp = str[strlen1 - 1];
+		for (int j = strlen1-1; j >= 1; j--) {
+			str[j] = str[j - 1];
+		}
+		str[0] = temp;
+		printf("%s\n", str);
+	}
+}
 
-int main(void){
-    int textN;
-    int textM;
-    scanf("%d %d",&textN,&textM);
+char* replaceTextOne(char* text, char* target, char* replace, int maxStr) {
+	printf("text:%s\n", text);
+	static char strTmp[100] = { 0, };
+	for (int i = 0; i < strlen(strTmp); i++) {
+		strTmp[i] = 0;
+	}
+	char* tarPt = strstr(text, target);
+	if (tarPt != 0) {
+		int tarIndex = tarPt - text;
+		printf("index�� %d\n", tarIndex);
+		printf("1�� ��������:%s\n", strTmp);
+		printf("1�� ��������text:%s\n", text);
 
-    int** stackArr = (int**)malloc(sizeof(int*)*(textM+1));                         //배열을 (m개)선언해 각 배열을 스택으로 관리한다.
-    int* top = (int*)malloc(sizeof(int)*(textM+1));                                 //각 스택의 탑을 기억한다.
-    int max;
+		strncpy(strTmp, text, tarIndex);
+		printf("1�� ����:%s\n", strTmp);
 
-    for(int i=0 ; i<textM ; i++){
-        max = 1000000;
-        int eachNum;
-        scanf("%d",&eachNum);
-        stackArr[i] = (int*)malloc(sizeof(int)*(eachNum+1));                        //stack에 해당하는 배열을 초기화한다
-        for(int j=0; j<eachNum; j++){
-            int in;
-            scanf("%d",&in);
-            if(max>in){
-                stackArr[i][top[i]]=in;             //입력받은 값을 i번째 스택에 top부분에 쌓아준다.
-                top[i]++;                           //값이 추가되었으니 top을 +1한다.
-                max = in;
-            }else{
-                printf("No");
-                return 0;
-            }
-            
-        }
-    }
-    printf("Yes");
+		int replaceNum = 0;
+		if (strlen(replace) > strlen(target)) {
+			replaceNum = maxStr;
+			strncat(strTmp, replace, replaceNum);
+			printf("strTmp:%s\n", strTmp);
+			for (int i = 0; i < strlen(text); i++) {
+				strTmp[tarIndex + i + replaceNum] = text[tarIndex + i + replaceNum];
+			}
+		}
+		else {
+			replaceNum = strlen(replace);
+			strncat(strTmp, replace, replaceNum);
+			printf("strTmp:%s\n", strTmp);
+			for (int i = 0; i < strlen(text); i++) {
+				strTmp[tarIndex + i + replaceNum] = text[tarIndex + i + strlen(target)];
+			}
+		}
 
-    free(stackArr);
-    free(top);
+		
+	}
+	printf("%s\n", strTmp);
+	return strTmp;
+}
+
+char* replaceText(char* text, char* target, char* replace, int maxStr) {
+	if (strcmp(target,"")==0) return 0;
+	char tmpStr[100] = {0,};
+	strcpy(tmpStr, text);
+	while (strstr(tmpStr, target) != 0) {
+		char* tmpPt = replaceTextOne(tmpStr, target, replace, maxStr);
+		strcpy(tmpStr, tmpPt);
+	}
 }
 
 
-
-
-
-// 단순하게 stack 활용만으로는 문제가 풀리지 않는다.
-// 1. 한 더미의 값을 평균내서 그 값이 작은걸 위로 올리면 되지 않을까? - 정렬하는데 시간이 오래 걸릴수도 있음을 확인해야 한다.
+int main() {
+	replaceText("n hello World hello now", "hello", "tes", 5);
+}
