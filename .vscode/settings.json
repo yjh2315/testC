@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "stdio.h": "c",
-        "stdlib.h": "c",
-        "17413_2_reverseword": "c"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
-}
